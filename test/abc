@@ -1,0 +1,23 @@
+async componentDidMount(){
+  const web3 = new Web3( new Web3.providers.HttpProvider("http://127.0.0.1:7545"))
+  console.log(await web3.eth.getAccounts())
+
+  var myContract = await  new web3.eth.Contract(Auction.abi, Auction.networks[5777].address);
+
+  // console.log(await myContract.methods.putBid().send({
+  //   from: '0xF539D50F30182bcC68b0721cB38a1F2f2FA8eb29', 
+  //   value: 1000000000000000000 
+  //  }))
+console.log(window.ethereum.isConnected())
+  console.log(window.ethereum.selectedAddress)
+  if(window.ethereum.selectedAddress){
+ //  let h =await window.ethereum.request({method:"eth_requestAccounts"})
+console.log(await myContract.methods.putBid().send({
+    from: window.ethereum.selectedAddress, 
+    value: 1000000000000000000 
+   }))
+  }else{
+  console.log(await window.ethereum.request({method:"eth_requestAccounts"}))
+  }
+ 
+}
